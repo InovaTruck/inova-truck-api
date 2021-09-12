@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/user-infos",
+      "handler": "custom.userInfos",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
