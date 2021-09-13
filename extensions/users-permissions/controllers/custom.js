@@ -1,6 +1,6 @@
 module.exports = {
   userInfos: async (ctx) => {
-  const fields = await strapi.query('user', 'users-permissions').findOne({ id_in: [ctx.state.user.id] }, ['categorias', 'categorias.image', 'categorias.pecas.image']);
+  const fields = await strapi.query('user', 'users-permissions').findOne({ id_in: [ctx.state.user.id] }, ['categorias', 'categorias.image', 'categorias.pecas.image', 'categorias.pecas.comandos']);
 
   const data = {
     id: fields.id,
@@ -23,11 +23,26 @@ module.exports = {
       return {
         id: peca.id,
         name: peca.name,
-        image: peca.image.formats.thumbnail.url
+        image: peca.image.formats.thumbnail.url,
+        comandos: peca.comandos
       }
     })
     categoria.pecas = formatedPecas
+
+    categoria.pecas.forEach(peca => {
+        const formatedComandos = peca.comandos.map(comando => {
+          return {
+            id: comando.id,
+            name: comando.name,
+            message: comando.message
+          }
+        })
+    
+        peca.comandos = formatedComandos
+      })
   })
+
+
 
   data.categorias = formatedCategorias
   

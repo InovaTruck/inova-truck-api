@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/comandos",
+      "handler": "comandos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/comandos/count",
+      "handler": "comandos.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/comandos/:id",
+      "handler": "comandos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/comandos",
+      "handler": "comandos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/comandos/:id",
+      "handler": "comandos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/comandos/:id",
+      "handler": "comandos.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

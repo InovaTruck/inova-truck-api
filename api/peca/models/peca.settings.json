@@ -29,6 +29,10 @@
     "categoria": {
       "model": "categorias",
       "via": "pecas"
+    },
+    "comandos": {
+      "via": "peca",
+      "collection": "comandos"
     }
   }
 }
