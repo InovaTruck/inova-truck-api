@@ -6,4 +6,5 @@ module.exports = ({ env }) => ({
       secret: env('ADMIN_JWT_SECRET', '487f5fe453ba9c42527055c0e5443c2e'),
     },
   },
+  url: 'http://apí.inovatruck.com.br',
 });
