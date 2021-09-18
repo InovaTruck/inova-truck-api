@@ -1,12 +1,13 @@
 module.exports = {
   userInfos: async (ctx) => {
-  const fields = await strapi.query('user', 'users-permissions').findOne({ id_in: [ctx.state.user.id] }, ['categorias', 'categorias.image', 'categorias.pecas.image', 'categorias.pecas.comandos']);
+  const fields = await strapi.query('user', 'users-permissions').findOne({ id_in: [ctx.state.user.id] }, ['categorias', 'categorias.image', 'pecas.image', 'pecas.comandos', 'pecas.categoria']);
 
   const data = {
     id: fields.id,
     username: fields.username,
     email: fields.email,
-    categorias: fields.categorias
+    categorias: fields.categorias,
+    pecas: fields.pecas
   }
   
   const formatedCategorias = fields.categorias.map(categoria => {
@@ -17,34 +18,36 @@ module.exports = {
       pecas: categoria.pecas
     }
   })
+  
+  data.categorias = formatedCategorias
 
-  formatedCategorias.forEach(categoria => {
-   const formatedPecas = categoria.pecas.map(peca => {
-      return {
-        id: peca.id,
-        name: peca.name,
-        image: peca.image.formats.thumbnail.url,
-        comandos: peca.comandos
-      }
-    })
-    categoria.pecas = formatedPecas
-
-    categoria.pecas.forEach(peca => {
-        const formatedComandos = peca.comandos.map(comando => {
-          return {
-            id: comando.id,
-            name: comando.name,
-            message: comando.message
-          }
-        })
-    
-        peca.comandos = formatedComandos
-      })
+  const formatedPecas = data.pecas.map(peca => {
+    console.log(peca)
+    return {
+      id: peca.id,
+      category_id: peca.categoria.id,
+      name: peca.name,
+      image: peca.image.formats.thumbnail.url,
+      comandos: peca.comandos
+    }
   })
 
+  data.pecas = formatedPecas
+
+  data.pecas.forEach(peca => {
+      const formatedComandos = peca.comandos.map(comando => {
+        return {
+          id: comando.id,
+          name: comando.name,
+          message: comando.message
+        }
+      })
+  
+      peca.comandos = formatedComandos
+    })
 
 
-  data.categorias = formatedCategorias
+
   
   ctx.send(data);
   }
