@@ -28,6 +28,8 @@ module.exports = {
       category_id: peca.categoria.id,
       name: peca.name,
       image: peca.image.formats.thumbnail.url,
+      is_sensor: peca.is_sensor,
+      cable_advice: peca.cable_advice,
       comandos: peca.comandos
     }
   })
